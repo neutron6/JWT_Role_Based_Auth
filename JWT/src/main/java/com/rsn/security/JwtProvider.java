@@ -1,9 +1,8 @@
 package com.rsn.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +20,23 @@ public class JwtProvider {
     private Claims parseToken(String token) {
 
         // Create JwtParser------3
-        JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(jwtSecret.getBytes()).build();
+        JwtParser jwtParser = Jwts.
+                parserBuilder().
+                setSigningKey(jwtSecret.getBytes()).build();
 
-        Claims claims;
         try {
-            claims = jwtParser.parseClaimsJws(token).getBody();
-        } catch (Exception e) {
-            // TODO: handle exception
+            return jwtParser.parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException e) {
+            System.out.println(e.getMessage());
+        } catch (UnsupportedJwtException e) {
+            System.out.println(e.getMessage());
+        } catch (MalformedJwtException e) {
+            System.out.println(e.getMessage());
+        } catch (SignatureException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
 
         return null;
