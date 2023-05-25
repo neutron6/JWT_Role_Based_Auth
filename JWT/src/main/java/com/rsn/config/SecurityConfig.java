@@ -42,9 +42,10 @@ public class SecurityConfig {
 
         http.exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint);
 
-        http.authorizeHttpRequests().requestMatchers("/api").permitAll().
-                requestMatchers("").permitAll().
-                requestMatchers("").permitAll().
+        http.authorizeHttpRequests().
+                requestMatchers("/").permitAll().
+                requestMatchers("/api/token/**").permitAll().
+                requestMatchers("/api/createAccount/**").permitAll().
                 anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
