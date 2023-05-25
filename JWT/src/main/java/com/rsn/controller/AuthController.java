@@ -37,4 +37,8 @@ public class AuthController {
     public AppUser createAccount(@RequestBody CreateUserReq createUserReq) throws Exception {
         return userDetailsService.createUser(createUserReq);
     }
+
+  
+
+
 }
