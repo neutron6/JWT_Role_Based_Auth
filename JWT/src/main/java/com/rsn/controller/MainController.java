@@ -1,12 +1,23 @@
 package com.rsn.controller;
 
+import com.rsn.model.AppUser;
+import com.rsn.service.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MainController {
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @GetMapping("/")
     public String authenticateAll() {
@@ -14,14 +25,15 @@ public class MainController {
     }
 
     @GetMapping("/user")
-    public String authenticateUser() {
-        return "THIS IS ACCESSIBLE BY AUTHENTICATED USER";
+    public List<Object> authenticateUser() {
+        return userDetailsServiceImpl.getDataByRoleBase();
     }
 
     @Secured({"ROLE_ADMIN"})
     @GetMapping("/admin")
-    public String authenticateAdmin() {
-        return "THIS IS ACCESSIBLE BY ADMIN";
+    public List<AppUser> authenticateAdmin() {
+        return userDetailsServiceImpl.getAlldata();
+
     }
 
     @Secured({"ROLE_EDITOR", "ROLE_ADMIN"})
