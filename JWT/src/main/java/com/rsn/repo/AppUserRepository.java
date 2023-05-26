@@ -14,7 +14,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 
     Optional<AppUser> findByUsername(String username);
 
-    AppUser findByUsernameAndPassword(String username, String password);
+
 
     @Query("SELECT u.username, u.password FROM AppUser u WHERE u.userRole = 'ROLE_USER'")
     List<Object> findUsersByUserRole();

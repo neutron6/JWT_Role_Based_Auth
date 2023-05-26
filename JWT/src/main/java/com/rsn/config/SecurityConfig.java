@@ -46,6 +46,8 @@ public class SecurityConfig {
                 requestMatchers("/").permitAll().
                 requestMatchers("/api/token/**").permitAll().
                 requestMatchers("/api/createAccount/**").permitAll().
+                requestMatchers("/signUp").permitAll().
+                requestMatchers("/logIn/{email}/{password}").permitAll().
                 anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
