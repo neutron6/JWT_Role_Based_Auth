@@ -1,16 +1,14 @@
 package com.rsn.service;
 
+import com.rsn.dto.CreateEmployeeReq;
 import com.rsn.dto.CreateUserReq;
 import com.rsn.model.AppUser;
+import com.rsn.model.Employee;
+import com.rsn.repo.EmployeeRepo;
 import com.rsn.repo.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,6 +28,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmployeeRepo employeeRepo;
 
 
     @Override
@@ -78,8 +79,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //        }
 //    }
 
-    public List<AppUser> getAlldata() {
-        return appUserRepository.findAll();
+//    public List<AppUser> getAlldata() {
+//        return appUserRepository.findAll();
+//    }
+
+    public List<Employee> getAlldata() {
+        return employeeRepo.findAll();
     }
 
 //    public Page<AppUser> getUserWithPaginationAndSort(Integer offset, Integer pageSize, String field) {
@@ -91,4 +96,34 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public List<Object> getDataByRoleBase() {
         return appUserRepository.findUsersByUserRole();
     }
+
+    public Employee createEmployee(CreateEmployeeReq createEmployeeReq) throws Exception {
+
+        String firstname = createEmployeeReq.getFirstname();
+        String lastname = createEmployeeReq.getLastname();
+        String email = createEmployeeReq.getEmail();
+        String password = createEmployeeReq.getPassword();
+
+        // Check whether email exists or not
+        boolean isExists = employeeRepo.existsByEmail(email);
+
+        if (isExists) {
+            throw new Exception("User already exists.");
+        }
+
+
+        Employee employee1 = new Employee();
+        employee1.setFirstname(firstname);
+        employee1.setLastname(lastname);
+        employee1.setEmail(email);
+        employee1.setPassword(password);
+
+        // Save user
+        return employeeRepo.save(employee1);
+
+
+    }
+
+
+
 }
