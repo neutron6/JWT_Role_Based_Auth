@@ -1,9 +1,9 @@
 # JWT_Role_Based_Auth
 This is Role base authentication by using JWT its a monolithic architecture
 
-*ADMIN == > which can access all submodules
-*USER == >which can access users only
-*EDITOR == >which can access editors only
+1. ADMIN == > which can access all submodules
+2. USER == >which can access users only
+3. EDITOR == >which can access editors only
 
 API Url :=>
 1. http://localhost:8080/api/token -->generate token 
