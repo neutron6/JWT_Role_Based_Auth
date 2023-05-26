@@ -12,5 +12,4 @@ API Url :=>
 4. http://localhost:8080/logIn/employee1@gmail.com/emp123 -->access by using email id and password
 
 {working on microservices **ROLEBASE** big data soon will upload..}
-![dp](https://github.com/neutron6/JWT_Role_Based_Auth/assets/74584550/2607514e-df0b-4ca2-9be6-85ec554d0c6b)
 
