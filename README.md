@@ -7,7 +7,7 @@ This is Role base authentication by using JWT its a monolithic architecture
 
 API Url :=>
 1. http://localhost:8080/api/token -->generate token 
-2. http://localhost:8080/admin     -->access the submodukes by using admin
+2. http://localhost:8080/admin     -->access the submodules by using admin
 3. http://localhost:8080/editor    -->access the editors 
 4. http://localhost:8080/logIn/employee1@gmail.com/emp123 -->access by using email id and password
 
